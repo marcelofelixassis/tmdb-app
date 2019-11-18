@@ -21,10 +21,17 @@ class HomeHeader extends StatelessWidget {
             height: 420,
             child: Stack(
               children: <Widget>[
-                Opacity(
-                  opacity: 0.8,
+                ShaderMask(
+                  shaderCallback: (rect) {
+                    return LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.black, Colors.transparent],
+                    ).createShader(Rect.fromLTRB(0, 100, rect.width, rect.height));
+                  },
+                  blendMode: BlendMode.dstIn,
                   child: Image.network("https://image.tmdb.org/t/p/w500"+latestSerie.posterPath, fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
-                )
+                ),
               ],
             ), 
           ),

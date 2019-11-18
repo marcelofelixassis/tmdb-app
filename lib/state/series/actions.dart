@@ -10,15 +10,15 @@ class SeriesAction {}
 class FetchTopSeries extends SeriesAction {
   ThunkAction<AppState> fetchTopSeries = (Store<AppState> store) async {
     store.dispatch(LoadTopSeries(true));
-    http.Response response = await http.get('https://api.themoviedb.org/3/tv/popular?api_key=256474098763369bf9f4dd7ae2f26a94');
-    if(response.statusCode == 200) {
+    try {
+      http.Response response = await http.get('https://api.themoviedb.org/3/tv/popular?api_key=256474098763369bf9f4dd7ae2f26a94');
       var data = jsonDecode(response.body);
-      var rest = data['results'] as List;
+      var rest = data['results'] as List; 
       var list = rest.map<SerieModel>((json) => SerieModel.fromJson(json)).toList();
       store.dispatch(SuccessTopSeries(list));
-      store.dispatch(LoadTopSeries(false));
-    }else {
-      print("error");
+    } catch (e) {
+      print("error, $e");
+    } finally {
       store.dispatch(LoadTopSeries(false));
     }
   };

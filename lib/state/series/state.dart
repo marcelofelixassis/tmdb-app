@@ -14,7 +14,7 @@ class SerieState {
     );
   }
 
-  SerieState copyWith({ List<SerieModel> topSeries, bool topSeriesLoading, SerieModel latestSerie }) {
+  SerieState copyWith({ List<SerieModel> topSeries, bool topSeriesLoading }) {
     return SerieState(
       topSeries: topSeries ?? this.topSeries,
       topSeriesLoading: topSeriesLoading ?? this.topSeriesLoading,
