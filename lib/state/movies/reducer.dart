@@ -9,7 +9,6 @@ MovieState moviesReducer(MovieState state, MovieAction action) {
   }
 
   if(action is SuccessTopMovies) {
-    print("caiu");
     return state.copyWith(
       topMovies: action.topMovies,
     );

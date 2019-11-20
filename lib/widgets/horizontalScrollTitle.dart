@@ -9,17 +9,16 @@ class HorizontalScrollTitle extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.only(
-          top: 8.0,
-          left: 12.0,
-          bottom: 8.0,
-          right: 12.0,
+          top: 4.0,
+          bottom: 4.0,
         ),
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15.5,
-            color: Colors.red,
+            color: Color.fromRGBO(124, 128, 128, 1.0),
           ),
         ),
       ),

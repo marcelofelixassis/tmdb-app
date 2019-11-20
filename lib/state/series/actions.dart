@@ -11,7 +11,7 @@ class FetchTopSeries extends SeriesAction {
   ThunkAction<AppState> fetchTopSeries = (Store<AppState> store) async {
     store.dispatch(LoadTopSeries(true));
     try {
-      http.Response response = await http.get('https://api.themoviedb.org/3/tv/popular?api_key=256474098763369bf9f4dd7ae2f26a94');
+      http.Response response = await http.get('https://api.themoviedb.org/3/tv/top_rated?api_key=256474098763369bf9f4dd7ae2f26a94');
       var data = jsonDecode(response.body);
       var rest = data['results'] as List; 
       var list = rest.map<SerieModel>((json) => SerieModel.fromJson(json)).toList();

@@ -15,7 +15,6 @@ class MovieState {
   }
 
   MovieState copyWith({ List<MovieModel> topMovies, bool topMoviesLoading }) {
-    print(topMovies);
     return MovieState(
       topMovies: topMovies ?? this.topMovies,
       topMoviesLoading:  topMoviesLoading ?? this.topMoviesLoading,

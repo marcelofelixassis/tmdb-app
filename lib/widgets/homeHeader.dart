@@ -39,7 +39,7 @@ class HomeHeader extends StatelessWidget {
         Container(
           height: 420,
           child: Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Opacity(
               opacity: 0.7,
               child: FlatButton.icon(

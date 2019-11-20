@@ -7,9 +7,9 @@ import 'package:tmdb_app/state/movies/state.dart';
 import 'package:tmdb_app/state/series/actions.dart';
 import 'package:tmdb_app/state/series/state.dart';
 import 'package:tmdb_app/widgets/homeHeader.dart';
-import 'package:tmdb_app/widgets/horizontalScrollMovie.dart';
 import 'package:tmdb_app/widgets/horizontalScrollSerie.dart';
 import 'package:tmdb_app/widgets/horizontalScrollTitle.dart';
+import 'package:tmdb_app/widgets/topMoviesScrollCard.dart';
 
 class HomeContainer extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _HomeContainerState extends State<HomeContainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -56,11 +56,27 @@ class _HomeContainerState extends State<HomeContainer> {
                   );
                 } else {
                   var rng = new Random();
-                  return HomeHeader(serieState.topSeries[rng.nextInt(20)]);
+                  return HomeHeader(serieState.topSeries[rng.nextInt(serieState.topSeries.length)]);
                 }
               },
             ),
+            
+            HorizontalScrollTitle("TOP MOVIES"),
+
+            StoreConnector<AppState, MovieState>(
+              converter: (store) => store.state.movieState,
+              builder: (context, movieState) {
+                if(movieState.topMoviesLoading) {
+                  return CircularProgressIndicator();
+                } else {
+                  return
+                    TopMoviesScrollCard(movieState.topMovies);
+                }
+              },
+            ),
+
             HorizontalScrollTitle("TOP SERIES"),
+
             StoreConnector<AppState, SerieState>(
               converter: (store) => store.state.serieState,
               builder: (context, serieState) {
@@ -68,17 +84,6 @@ class _HomeContainerState extends State<HomeContainer> {
                   return CircularProgressIndicator();
                 } else {
                   return HorizontalScrollSerie(serieState.topSeries);
-                }
-              },
-            ),
-            HorizontalScrollTitle("TOP MOVIES"),
-            StoreConnector<AppState, MovieState>(
-              converter: (store) => store.state.movieState,
-              builder: (context, movieState) {
-                if(movieState.topMoviesLoading) {
-                  return CircularProgressIndicator();
-                } else {
-                  return HorizontalScrollMovie(movieState.topMovies);
                 }
               },
             ),
