@@ -18,7 +18,7 @@ class _TopMoviesScrollCardState extends State<TopMoviesScrollCard> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: 1, viewportFraction: 0.6);
+    _pageController = PageController(initialPage: 1, viewportFraction: 0.5);
   }
 
    _movieSelector(int index) {
@@ -82,8 +82,8 @@ class _TopMoviesScrollCardState extends State<TopMoviesScrollCard> {
             Positioned(
               left: 20.0,
               bottom: 30.0,
+              right: 20.0,
               child: Container(
-                width: 200.0,
                 child: Text(
                   widget.itens[index].title,
                   textAlign: TextAlign.left,
