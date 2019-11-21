@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tmdb_app/models/movieModel.dart';
  
 class TopMoviesScrollCard extends StatefulWidget {
@@ -95,6 +96,26 @@ class _TopMoviesScrollCardState extends State<TopMoviesScrollCard> {
                     fontWeight: FontWeight.bold
                   ),
                 ),
+              ),
+            ),
+            Positioned(
+              left: 20.0,
+              top: 30.0,
+              right: 20.0,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  SmoothStarRating(
+                    allowHalfRating: false,
+                    starCount: 5,
+                    rating: widget.itens[index].voteAverage / 2,
+                    size: 20.0,
+                    color: Colors.red,
+                    borderColor: Colors.red,
+                    spacing:1.5
+                  ),
+                ], 
               ),
             ),
           ],

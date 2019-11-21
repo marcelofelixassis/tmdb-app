@@ -2,37 +2,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tmdb_app/state/app_state.dart';
-import 'package:tmdb_app/state/movies/actions.dart';
 import 'package:tmdb_app/state/movies/state.dart';
-import 'package:tmdb_app/state/series/actions.dart';
 import 'package:tmdb_app/state/series/state.dart';
 import 'package:tmdb_app/widgets/homeHeader.dart';
 import 'package:tmdb_app/widgets/horizontalScrollSerie.dart';
 import 'package:tmdb_app/widgets/horizontalScrollTitle.dart';
 import 'package:tmdb_app/widgets/topMoviesScrollCard.dart';
 
-class HomeContainer extends StatefulWidget {
-  @override
-  _HomeContainerState createState() => _HomeContainerState();
-}
-
-class _HomeContainerState extends State<HomeContainer> {
-
-  @override
-  void didChangeDependencies() {
-    fetchTopSeries();
-    fetchTopMovies();
-    super.didChangeDependencies();
-  }
-
-  void fetchTopSeries() {
-    StoreProvider.of<AppState>(context).dispatch(FetchTopSeries().fetchTopSeries);
-  }
-
-  void fetchTopMovies() {
-    StoreProvider.of<AppState>(context).dispatch(FetchTopMovies().fetchTopMovies);
-  }
-
+class HomeContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
