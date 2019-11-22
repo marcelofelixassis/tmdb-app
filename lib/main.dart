@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_redux_navigation/flutter_redux_navigation.dart';
 import 'package:tmdb_app/containers/home.dart';
+import 'package:tmdb_app/containers/moviesDetails.dart';
 import 'package:tmdb_app/containers/splash.dart';
 import 'package:tmdb_app/state/app_store.dart';
 
@@ -25,14 +25,20 @@ class MyApp extends StatelessWidget {
   }
 
   Route _getRoute(RouteSettings settings) {
+    final Map<String, dynamic> arguments = settings.arguments;
     switch(settings.name){
       case '/':
         return _buildRoute(settings, Splash());
       case '/home':
         return _buildRoute(settings, HomeContainer());
+      case '/movies_datails':
+        return _buildRoute(settings, MoviesDatails(
+          position: arguments['position'],
+          iten: arguments['iten'],
+        ));
       default:
         return _buildRoute(settings, Splash());
-    }
+    } 
   }
 
   MaterialPageRoute _buildRoute(RouteSettings settings, Widget builder) {

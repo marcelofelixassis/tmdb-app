@@ -37,6 +37,20 @@ class HomeHeader extends StatelessWidget {
           ),
         ),
         Container(
+          child: Positioned(
+            top: 30.0,
+            left: 6.0,
+            child: Opacity(
+              opacity: 0.7,
+              child:  Icon(
+                Icons.movie_filter,
+                size: 40,
+                color: Colors.red
+              ),
+            )
+          ),
+        ),
+        Container(
           height: 420,
           child: Align(
             alignment: Alignment.center,

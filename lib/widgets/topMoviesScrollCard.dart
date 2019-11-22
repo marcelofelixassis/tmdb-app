@@ -40,7 +40,12 @@ class _TopMoviesScrollCardState extends State<TopMoviesScrollCard> {
           ),
         );
       },
-      child: Stack(
+      child: GestureDetector(
+        onTap: () => Navigator.of(context).pushNamed(
+          '/movies_datails',
+          arguments: {"position": index, "iten": widget.itens[index]}
+        ),
+        child: Stack(
           children: <Widget>[
             Center(
               child: Container(
@@ -56,26 +61,26 @@ class _TopMoviesScrollCardState extends State<TopMoviesScrollCard> {
                   ],
                 ),
                 child: Center(
-                  child: Hero(
-                    tag: posterImage,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: ShaderMask(
-                        shaderCallback: (rect) {
-                          return LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Colors.black, Colors.transparent],
-                          ).createShader(Rect.fromLTRB(0, 100, rect.width, 190));
-                        },
-                        blendMode: BlendMode.dstIn,
-                        child: Image(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: ShaderMask(
+                      shaderCallback: (rect) {
+                        return LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.black, Colors.transparent],
+                        ).createShader(Rect.fromLTRB(0, 100, rect.width, 190));
+                      },
+                      blendMode: BlendMode.dstIn,
+                      child: Hero(
+                        tag: "${widget.itens[index].id}-$index",
+                        child:Image(
                           image: NetworkImage("$poster400$posterImage"),
                           height: 200.0,
                           fit: BoxFit.cover,
                         ),
                       )
-                    ),
+                    )
                   ),
                 ),
               ),
@@ -120,6 +125,7 @@ class _TopMoviesScrollCardState extends State<TopMoviesScrollCard> {
             ),
           ],
         ),
+      ),
     );
   }
 
