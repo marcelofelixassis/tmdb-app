@@ -1,24 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb_app/utils/clipShadowPath.dart';
 
 class DetailsHeader extends StatelessWidget {
   final String posterPath;
-  final String tag;
 
-  DetailsHeader(this.posterPath, this.tag);
+  DetailsHeader(this.posterPath);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Stack(
         children: <Widget>[
-          ClipPath(
+          ClipShadowPath(
+            shadow: Shadow(
+              blurRadius: 5
+            ),
             clipper: ClipImage(),
             child: Container(
+              transform: Matrix4.translationValues(0.0, -50.0, 0.0),
               height: 400,
-              child: Hero(
-                tag: "tag",
-                child:Image.network("https://image.tmdb.org/t/p/w500"+posterPath, fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
-              )
+              child:Image.network("https://image.tmdb.org/t/p/w500"+posterPath, fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
+            ),
+          ),
+          Positioned.fill(
+            bottom: 20.0,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: RawMaterialButton(
+                padding: EdgeInsets.all(10.0),
+                onPressed: () => {},
+                elevation: 12.0,
+                child: Icon(
+                  Icons.play_arrow,
+                  size: 40.0,
+                  color: Colors.red,
+                ),
+                shape: CircleBorder(),
+                fillColor: Colors.white,
+              ),
             ),
           )
         ],
@@ -40,6 +59,9 @@ class ClipImage extends CustomClipper<Path> {
 
     path.lineTo(size.width, 0.0);
     path.lineTo(0.0, 0.0);
+
+    path.close();
+
     return path;
   }
 

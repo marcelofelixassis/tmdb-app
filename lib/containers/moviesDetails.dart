@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/models/movieModel.dart';
 import 'package:tmdb_app/widgets/detailsHeader.dart';
+import 'package:tmdb_app/widgets/detailsBody.dart';
 
 class MoviesDatails extends StatefulWidget {
   final int position;
@@ -15,6 +16,7 @@ class MoviesDatails extends StatefulWidget {
 class _MoviesDatailsState extends State<MoviesDatails> {
   @override
   initState(){
+    print(widget.iten.id);
     super.initState();
   }
   @override
@@ -24,7 +26,8 @@ class _MoviesDatailsState extends State<MoviesDatails> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            DetailsHeader(widget.iten.posterPath, "${widget.iten.id}-${widget.position}")
+            DetailsHeader(widget.iten.posterPath),
+            DetailsBody(widget.iten)
           ],
         ),
       )
