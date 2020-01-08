@@ -14,5 +14,17 @@ MovieState moviesReducer(MovieState state, MovieAction action) {
     );
   }
 
+  if(action is LoadSimilarMovies) {
+    return state.copyWith(
+      currentSimilarMoviesLoading: action.status,
+    );
+  }
+
+  if(action is SuccessSimilarMovies) {
+    return state.copyWith(
+      currentSimilarMovies: action.currentSimilarMovies,
+    );
+  }
+
   return state;
 }

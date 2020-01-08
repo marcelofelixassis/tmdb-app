@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tmdb_app/models/movieModel.dart';
+import 'package:tmdb_app/state/app_state.dart';
+import 'package:tmdb_app/state/movies/actions.dart';
 import 'package:tmdb_app/widgets/detailsHeader.dart';
-import 'package:tmdb_app/widgets/detailsBody.dart';
+import 'package:tmdb_app/widgets/detailsMovieBody.dart';
 
 class MoviesDatails extends StatefulWidget {
   final int position;
@@ -19,6 +22,13 @@ class _MoviesDatailsState extends State<MoviesDatails> {
     print(widget.iten.id);
     super.initState();
   }
+
+  @override
+  void didChangeDependencies() {
+    StoreProvider.of<AppState>(context).dispatch(FetchSimilarMovies().fetchSimilarMovies(widget.iten.id));
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +37,7 @@ class _MoviesDatailsState extends State<MoviesDatails> {
         child: Column(
           children: <Widget>[
             DetailsHeader(widget.iten.posterPath),
-            DetailsBody(widget.iten)
+            DetailsMovieBody(widget.iten)
           ],
         ),
       )

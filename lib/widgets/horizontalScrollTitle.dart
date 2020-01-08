@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class HorizontalScrollTitle extends StatelessWidget {
   final String title;
-  HorizontalScrollTitle(this.title);
+  final TextAlign position;
+  HorizontalScrollTitle(this.title, this.position);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +15,7 @@ class HorizontalScrollTitle extends StatelessWidget {
         ),
         child: Text(
           title,
-          textAlign: TextAlign.center,
+          textAlign: position,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15.5,

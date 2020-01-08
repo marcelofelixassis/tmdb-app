@@ -8,6 +8,8 @@ class DetailsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String poster500 = "https://image.tmdb.org/t/p/w500";
+
     return Container(
       child: Stack(
         children: <Widget>[
@@ -19,7 +21,19 @@ class DetailsHeader extends StatelessWidget {
             child: Container(
               transform: Matrix4.translationValues(0.0, -50.0, 0.0),
               height: 400,
-              child:Image.network("https://image.tmdb.org/t/p/w500"+posterPath, fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
+              child:Image.network("$poster500$posterPath", fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
+            ),
+          ),
+          Positioned.fill(
+            top: 35.0,
+            left: 10.0,
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: 30.0,
+                color: Colors.white,
+              ),
             ),
           ),
           Positioned.fill(

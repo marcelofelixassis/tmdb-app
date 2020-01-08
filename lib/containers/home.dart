@@ -38,7 +38,7 @@ class HomeContainer extends StatelessWidget {
               },
             ),
             
-            HorizontalScrollTitle("TOP MOVIES"),
+            HorizontalScrollTitle("TOP MOVIES", TextAlign.center),
 
             StoreConnector<AppState, MovieState>(
               converter: (store) => store.state.movieState,
@@ -52,7 +52,7 @@ class HomeContainer extends StatelessWidget {
               },
             ),
 
-            HorizontalScrollTitle("TOP SERIES"),
+            HorizontalScrollTitle("TOP SERIES", TextAlign.center),
 
             StoreConnector<AppState, SerieState>(
               converter: (store) => store.state.serieState,
