@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tmdb_app/containers/home.dart';
 import 'package:tmdb_app/containers/moviesDetails.dart';
+import 'package:tmdb_app/containers/seriesDetails.dart';
 import 'package:tmdb_app/containers/splash.dart';
 import 'package:tmdb_app/state/app_store.dart';
 
@@ -33,8 +34,11 @@ class MyApp extends StatelessWidget {
         return _buildRoute(settings, HomeContainer());
       case '/movies_datails':
         return _buildRoute(settings, MoviesDatails(
-          position: arguments['position'],
           iten: arguments['iten'],
+        ));
+      case '/series_details':
+        return _buildRoute(settings, SeriesDetails(
+          iten: arguments['iten']
         ));
       default:
         return _buildRoute(settings, Splash());

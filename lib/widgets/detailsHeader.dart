@@ -25,14 +25,17 @@ class DetailsHeader extends StatelessWidget {
             ),
           ),
           Positioned.fill(
-            top: 35.0,
-            left: 10.0,
+            top: 30.0,
+            left: 6.0,
             child: Align(
               alignment: Alignment.topLeft,
-              child: Icon(
-                Icons.arrow_back_ios,
-                size: 30.0,
-                color: Colors.white,
+              child: GestureDetector(
+                onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: 30.0,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

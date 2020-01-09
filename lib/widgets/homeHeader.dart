@@ -52,19 +52,23 @@ class HomeHeader extends StatelessWidget {
         ),
         Container(
           height: 420,
+          padding: EdgeInsets.only(bottom: 25.0),
           child: Align(
-            alignment: Alignment.center,
+            alignment: Alignment.bottomCenter,
             child: Opacity(
               opacity: 0.7,
               child: FlatButton.icon(
-                color: Colors.white,
+                color: Colors.red,
                 icon: Icon(Icons.info),
                 label: Text('More details'),
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).pushNamed(
+                  '/series_details',
+                  arguments: {"iten": latestSerie}
+                ),
               ),
-            )
+            ),
           ),
-        )
+        ),
       ],
     );
   }

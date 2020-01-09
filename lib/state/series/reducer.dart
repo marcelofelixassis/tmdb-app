@@ -14,5 +14,17 @@ SerieState seriesReducer(SerieState state, SeriesAction action) {
     );
   } 
 
+  if(action is LoadSimilarSeries) {
+    return state.copyWith(
+      currentSimilarSeriesLoading: action.status,
+    );
+  }
+
+  if(action is SuccessSimilarSeries) {
+    return state.copyWith(
+      currentSimilarSeries: action.currentSimilarSeries,
+    );
+  }
+
   return state;
 }

@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:tmdb_app/models/movieModel.dart';
+import 'package:tmdb_app/models/serieModel.dart';
 import 'package:tmdb_app/state/app_state.dart';
-import 'package:tmdb_app/state/movies/actions.dart';
+import 'package:tmdb_app/state/series/actions.dart';
 import 'package:tmdb_app/widgets/detailsHeader.dart';
-import 'package:tmdb_app/widgets/detailsMovieBody.dart';
+import 'package:tmdb_app/widgets/detailsSerieBody.dart';
 
-class MoviesDatails extends StatefulWidget {
-  final MovieModel iten;
-  
-  MoviesDatails({ Key key, this.iten }) : super(key: key);
-  
+class SeriesDetails extends StatefulWidget {
+  final SerieModel iten;
+
+  SeriesDetails({ Key key, this.iten }) : super(key: key);
+
   @override
-  _MoviesDatailsState createState() => _MoviesDatailsState();
+  _SeriesDetailsState createState() => _SeriesDetailsState();
 }
 
-class _MoviesDatailsState extends State<MoviesDatails> {
+class _SeriesDetailsState extends State<SeriesDetails> {
   @override
   void didChangeDependencies() {
-    StoreProvider.of<AppState>(context).dispatch(FetchSimilarMovies().fetchSimilarMovies(widget.iten.id));
+    StoreProvider.of<AppState>(context).dispatch(FetchSimilarSeries().fetchSimilarSeries(widget.iten.id));
     super.didChangeDependencies();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +30,10 @@ class _MoviesDatailsState extends State<MoviesDatails> {
         child: Column(
           children: <Widget>[
             DetailsHeader(widget.iten.posterPath),
-            DetailsMovieBody(widget.iten)
+            DetailsSerieBody(widget.iten)
           ],
         ),
-      )
+      ),
     );
   }
 }
