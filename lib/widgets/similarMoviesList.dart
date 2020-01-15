@@ -25,8 +25,8 @@ class SimilarMoviesList extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Colors.black,
-                offset: Offset(10.0, 8.0),
-                blurRadius: 9.0,
+                offset: Offset(0, 0),
+                blurRadius: 2.0,
               )
             ]
           ),

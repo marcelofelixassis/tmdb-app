@@ -1,62 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb_app/utils/clipShadowPath.dart';
+import 'package:tmdb_app/utils/createDialog.dart';
+import 'package:video_player/video_player.dart';
 
-class DetailsHeader extends StatelessWidget {
+class DetailsHeader extends StatefulWidget {
   final String posterPath;
 
   DetailsHeader(this.posterPath);
+
+  @override
+  _DetailsHeaderState createState() => _DetailsHeaderState();
+}
+
+class _DetailsHeaderState extends State<DetailsHeader> {
+  VideoPlayerController playerController;
+  VoidCallback listener;
+
+  @override
+  void initState() {
+    super.initState();
+    listener = () {
+      setState(() {});
+    };
+  }
+
+  void createVideo() {
+    if (playerController == null) {
+      playerController = VideoPlayerController.network("https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4")
+      ..addListener(listener)
+      ..setVolume(1.0)
+      ..initialize();
+    }
+  }
+
+  showVideo() {
+    createVideo();
+    playerController.play();
+  }
 
   @override
   Widget build(BuildContext context) {
     String poster500 = "https://image.tmdb.org/t/p/w500";
 
     return Container(
-      child: Stack(
+      child: Column(
         children: <Widget>[
-          ClipShadowPath(
-            shadow: Shadow(
-              blurRadius: 5
-            ),
-            clipper: ClipImage(),
-            child: Container(
-              transform: Matrix4.translationValues(0.0, -50.0, 0.0),
-              height: 400,
-              child:Image.network("$poster500$posterPath", fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
-            ),
-          ),
-          Positioned.fill(
-            top: 30.0,
-            left: 6.0,
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: GestureDetector(
-                onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: 30.0,
-                  color: Colors.white,
+          Stack(
+            children: <Widget>[
+              ClipShadowPath(
+                shadow: Shadow(
+                  blurRadius: 5
+                ),
+                clipper: playerController == null ? ClipImage() : null,
+                child: (playerController == null ? Container(
+                  transform: Matrix4.translationValues(0.0, -50.0, 0.0),
+                  height: 400,
+                  child:Image.network("$poster500${widget.posterPath}", fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
+                ) : Container( height: 400, child: AspectRatio( aspectRatio: 16/9, child: VideoPlayer(playerController)))),
+              ),
+              Positioned.fill(
+                top: 30.0,
+                left: 6.0,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      size: 30.0,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          Positioned.fill(
-            bottom: 20.0,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: RawMaterialButton(
-                padding: EdgeInsets.all(10.0),
-                onPressed: () => {},
-                elevation: 12.0,
-                child: Icon(
-                  Icons.play_arrow,
-                  size: 40.0,
-                  color: Colors.red,
+              Positioned.fill(
+                bottom: 20.0,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: RawMaterialButton(
+                    padding: EdgeInsets.all(10.0),
+                    onPressed: () => CreateDialog().buildDialog(context, showVideo),
+                    elevation: 12.0,
+                    child: Icon(
+                      Icons.play_arrow,
+                      size: 40.0,
+                      color: Colors.red,
+                    ),
+                    shape: CircleBorder(),
+                    fillColor: Colors.white,
+                  ),
                 ),
-                shape: CircleBorder(),
-                fillColor: Colors.white,
-              ),
-            ),
-          )
+              )
+            ],
+          ),
         ],
       ),
     );

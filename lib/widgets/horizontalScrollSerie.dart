@@ -18,7 +18,8 @@ class _HorizontalScrollSerieState extends State<HorizontalScrollSerie> {
   Widget build(BuildContext context) {
     widget.itens.remove(0);
     return Container(
-      height: 135,
+      padding: EdgeInsets.only(top: 20.0),
+      height: 155,
       child: ListView.builder(
         itemCount: widget.itens.length,
         scrollDirection: Axis.horizontal,
@@ -26,37 +27,39 @@ class _HorizontalScrollSerieState extends State<HorizontalScrollSerie> {
           var name = widget.itens[index].name;
           var poster = widget.itens[index].posterPath.toString();
 
-          return GestureDetector(
-            onTap: () => Navigator.of(context).pushNamed(
-              '/series_details',
-              arguments: {"position": index, "iten": widget.itens[index]}
-            ),
-            child: Container(
-              width: 120,
-              child:  Column(
-                children: <Widget>[
-                  Material(
-                    shape: CircleBorder(),
-                    clipBehavior: Clip.hardEdge,
-                    color: Colors.transparent,
-                    child: Ink.image(
-                      image: NetworkImage("$poster400$poster"),
-                      fit: BoxFit.fill,
-                      width: 100.0,
-                      height: 100.0,
+          return Center(
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(
+                '/series_details',
+                arguments: {"position": index, "iten": widget.itens[index]}
+              ),
+              child: Container(
+                width: 120,
+                child:  Column(
+                  children: <Widget>[
+                    Material(
+                      shape: CircleBorder(),
+                      clipBehavior: Clip.hardEdge,
+                      color: Colors.transparent,
+                      child: Ink.image(
+                        image: NetworkImage("$poster400$poster"),
+                        fit: BoxFit.fill,
+                        width: 100.0,
+                        height: 100.0,
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 100,
-                    child: Text(
-                      name,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  )
-                ],
+                    Container(
+                      width: 100,
+                      child: Text(
+                        name,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           );
