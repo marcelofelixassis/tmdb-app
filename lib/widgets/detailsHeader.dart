@@ -25,17 +25,23 @@ class _DetailsHeaderState extends State<DetailsHeader> {
   }
 
   void createVideo() {
-    if (playerController == null) {
+    if(playerController == null) {
       playerController = VideoPlayerController.network("https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4")
       ..addListener(listener)
       ..setVolume(1.0)
-      ..initialize();
+      ..initialize()
+      ..play();
+    } else {
+      playerController = null;
     }
   }
 
-  showVideo() {
-    createVideo();
-    playerController.play();
+  playOrDesrtoyVideo() {
+    if(playerController == null) {
+      createVideo();
+    } else {
+      playerController = null;
+    }
   }
 
   @override
@@ -47,16 +53,25 @@ class _DetailsHeaderState extends State<DetailsHeader> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              ClipShadowPath(
-                shadow: Shadow(
-                  blurRadius: 5
-                ),
-                clipper: playerController == null ? ClipImage() : null,
-                child: (playerController == null ? Container(
+              (playerController == null
+                ? ClipShadowPath(
+                    shadow: Shadow(
+                      blurRadius: 5
+                    ),
+                    clipper: ClipImage(),
+                    child: Container(
+                      transform: Matrix4.translationValues(0.0, -50.0, 0.0),
+                      height: 400,
+                      child:Image.network("$poster500${widget.posterPath}", fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
+                    ),
+                  )
+                : Container(
                   transform: Matrix4.translationValues(0.0, -50.0, 0.0),
                   height: 400,
-                  child:Image.network("$poster500${widget.posterPath}", fit:BoxFit.fill, width: MediaQuery.of(context).size.width),
-                ) : Container( height: 400, child: AspectRatio( aspectRatio: 16/9, child: VideoPlayer(playerController)))),
+                  child: AspectRatio(
+                    aspectRatio: 3/2, child: VideoPlayer(playerController)
+                  ),
+                )
               ),
               Positioned.fill(
                 top: 30.0,
@@ -79,10 +94,16 @@ class _DetailsHeaderState extends State<DetailsHeader> {
                   alignment: Alignment.bottomCenter,
                   child: RawMaterialButton(
                     padding: EdgeInsets.all(10.0),
-                    onPressed: () => CreateDialog().buildDialog(context, showVideo),
+                    onPressed: () {
+                      if(playerController == null) {
+                        CreateDialog().buildDialog(context, createVideo);
+                      } else {
+                        createVideo();
+                      }
+                    },
                     elevation: 12.0,
                     child: Icon(
-                      Icons.play_arrow,
+                      (playerController == null ? Icons.play_arrow : Icons.close),
                       size: 40.0,
                       color: Colors.red,
                     ),
